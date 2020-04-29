@@ -14,6 +14,35 @@ public class AuthorEntityManager {
     public void execute(){
         entityManagerFactory = Persistence.createEntityManagerFactory("author-mgt");
         Author author = new Author();
+        author.setFirstName("Navdeep");
+        author.setMiddleName("");
+        author.setLastName("Tripathi");
+        author.setPhoneNo(8090287569);
+        author = addAuthor(author);
+        printAuthor(author);
+        //fetch All
+        List<Author> list = fetchAll();
+        for (Author currentAuthor:
+             list) {
+            printAuthor(currentAuthor);
+        }
+        //find by id
+        Author findAuthor = findAuthorById(author.getAuthorId());
+        printAuthor(findAuthor);
+
+        //update author phone number
+        author.setPhoneNo(9770808000L);
+        Author updatedAuthor = updateAuthor(author);
+        printAuthor(updatedAuthor);
+
+        //delete author
+        if(removeAuthorById(author.getAuthorId())){
+            System.out.println("Author Removed Successfully");
+        }else{
+            System.out.println("Invalid Author id");
+        }
+
+
     }
 
     public Author addAuthor(Author author){
@@ -72,7 +101,7 @@ public class AuthorEntityManager {
     }
 
     void printAuthor(Author author) {
-        System.out.println("Author Details : \n---------------------------------"+author.getAuthorId()+" "
+        System.out.println("Author Details : \n---------------------------------\n"+author.getAuthorId()+" "
                 +author.getFirstName()+" "+author.getMiddleName()+" "+author.getLastName());
     }
 
